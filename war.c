@@ -43,5 +43,36 @@ void limparBufferEntrada();
 
 int main() {
 
-    
+    setlocale(LC_ALL, "Portuguese");
+    srand(time(NULL));
+
+    Territorio *mapa = alocarMapa();
+    if (mapa == NULL) {
+        printf("Erro de memória.\n");
+        return 1;
+    }
+
+    inicializarTerritorios(mapa);
+
+    char jogador[20] = "Azul";
+    int missao = sortearMissao();
+
+    int opcao;
+    int venceu = 0;
+
+    do {
+        exibirMapa(mapa);
+        exibirMissao(missao);
+        exibirMenuPrincipal();
+
+        scanf("%d", &opcao);
+        limparBufferEntrada();
+
+       
+
+    } while(opcao != 0 && !venceu);
+
+    liberarMemoria(mapa);
+
+    return 0;
 }
