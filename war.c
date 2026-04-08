@@ -38,3 +38,10 @@ int verificarVitoria(const Territorio *mapa, int missao, char jogador[]);
 
 // Utilitário
 void limparBufferEntrada(); 
+
+// Função Int Main ()
+
+int main() {
+
+    
+}
