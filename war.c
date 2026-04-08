@@ -97,7 +97,17 @@ Territorio* alocarMapa() {
     return (Territorio*) calloc(MAX_TERRITORIOS, sizeof(Territorio));
 }
 
+void inicializarTerritorios(Territorio *mapa) {
+    char nomes[MAX_TERRITORIOS][MAX_NOME] = {
+        "Brasil", "Argentina", "Chile", "Peru", "Uruguai"
+    };
+    char cores[2][20] = {"Azul", "Vermelho"};
 
+    for (int i = 0; i < MAX_TERRITORIOS; i++) {
+        strcpy(mapa[i].nome, nomes[i]);
+        strcpy(mapa[i].cor, cores[rand() % 2]);
+        mapa[i].tropas = rand() % 5 + 1;
+    }
 }
 
 void liberarMemoria(Territorio *mapa) {
