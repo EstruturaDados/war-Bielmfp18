@@ -113,3 +113,29 @@ void inicializarTerritorios(Territorio *mapa) {
 void liberarMemoria(Territorio *mapa) {
     free(mapa);
 }
+
+// Interface e funções de exibição
+
+void exibirMenuPrincipal() {
+    printf("\n=== MENU ===\n");
+    printf("1 - Atacar\n");
+    printf("2 - Verificar missão\n");
+    printf("0 - Sair\n");
+    printf("Escolha: ");
+}
+
+void exibirMapa(const Territorio *mapa) {
+    printf("\n=== MAPA ===\n");
+    for (int i = 0; i < MAX_TERRITORIOS; i++) {
+        printf("%d - %s | %s | Tropas: %d\n",
+               i, mapa[i].nome, mapa[i].cor, mapa[i].tropas);
+    }
+}
+
+void exibirMissao(int missao) {
+    printf("\n=== MISSÃO ===\n");
+    if (missao == 0)
+        printf("Conquistar 3 territórios\n");
+    else
+        printf("Eliminar o exército vermelho\n");
+}
