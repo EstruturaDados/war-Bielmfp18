@@ -90,3 +90,16 @@ int main() {
 
     return 0;
 }
+
+// Função para alocar memória para o mapa de territórios
+
+Territorio* alocarMapa() {
+    return (Territorio*) calloc(MAX_TERRITORIOS, sizeof(Territorio));
+}
+
+
+}
+
+void liberarMemoria(Territorio *mapa) {
+    free(mapa);
+}
