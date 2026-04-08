@@ -68,7 +68,21 @@ int main() {
         scanf("%d", &opcao);
         limparBufferEntrada();
 
-       
+        switch(opcao) {
+            case 1:
+                faseDeAtaque(mapa, jogador);
+                break;
+            case 2:
+                venceu = verificarVitoria(mapa, missao, jogador);
+                if (venceu)
+                    printf("Você venceu!\n");
+                else
+                    printf("Ainda não venceu.\n");
+                break;
+        }
+
+        printf("Pressione ENTER...");
+        getchar();
 
     } while(opcao != 0 && !venceu);
 
