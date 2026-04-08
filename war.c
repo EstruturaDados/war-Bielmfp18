@@ -19,3 +19,14 @@ typedef struct {
     char cor[20];
     int tropas;
 } Territorio;
+
+// Setup e memória
+Territorio* alocarMapa();
+void inicializarTerritorios(Territorio *mapa);
+void liberarMemoria(Territorio *mapa);
+
+// Interface
+void exibirMenuPrincipal();
+void exibirMapa(const Territorio *mapa);
+void exibirMissao(int missao);
+
