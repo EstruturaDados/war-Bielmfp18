@@ -30,3 +30,11 @@ void exibirMenuPrincipal();
 void exibirMapa(const Territorio *mapa);
 void exibirMissao(int missao);
 
+// Lógica
+void faseDeAtaque(Territorio *mapa, char jogador[]);
+void simularAtaque(Territorio *origem, Territorio *destino);
+int sortearMissao();
+int verificarVitoria(const Territorio *mapa, int missao, char jogador[]);
+
+// Utilitário
+void limparBufferEntrada(); 
