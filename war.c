@@ -139,3 +139,51 @@ void exibirMissao(int missao) {
     else
         printf("Eliminar o exército vermelho\n");
 }
+
+// Sistema de ataque e lógica de jogo
+
+void faseDeAtaque(Territorio *mapa, char jogador[]) {
+    int o, d;
+
+    printf("Origem: ");
+    scanf("%d", &o);
+    printf("Destino: ");
+    scanf("%d", &d);
+    limparBufferEntrada();
+
+    if (o >= 0 && o < MAX_TERRITORIOS && d >= 0 && d < MAX_TERRITORIOS) {
+        if (strcmp(mapa[o].cor, jogador) == 0) {
+            simularAtaque(&mapa[o], &mapa[d]);
+        } else {
+            printf("Território não é seu.\n");
+        }
+    } else {
+        printf("Índice inválido.\n");
+    }
+}
+
+void simularAtaque(Territorio *origem, Territorio *destino) {
+
+    if (origem->tropas < 2) {
+        printf("Poucas tropas.\n");
+        return;
+    }
+
+    int atk = rand() % 6 + 1;
+    int def = rand() % 6 + 1;
+
+    printf("Atk: %d | Def: %d\n", atk, def);
+
+    if (atk > def) {
+        destino->tropas--;
+
+        if (destino->tropas <= 0) {
+            printf("Conquistou!\n");
+            strcpy(destino->cor, origem->cor);
+            destino->tropas = 1;
+            origem->tropas--;
+        }
+    } else {
+        origem->tropas--;
+    }
+}
