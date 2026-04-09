@@ -211,75 +211,44 @@ void simularAtaque(Territorio *origem, Territorio *destino)
     {
         origem->tropas--;
     }
+}
 
-    int sortearMissao()
+// Missões e verificação de vitória
+
+int sortearMissao()
+{
+    return rand() % MAX_MISSOES;
+}
+
+int verificarVitoria(const Territorio *mapa, int missao, char jogador[])
+{
+
+    if (missao == 0)
     {
-        return rand() % MAX_MISSOES;
-    }
+        int count = 0;
 
-    int verificarVitoria(const Territorio *mapa, int missao, char jogador[])
-    {
-
-        if (missao == 0)
+        for (int i = 0; i < MAX_TERRITORIOS; i++)
         {
-            int count = 0;
-
-            for (int i = 0; i < MAX_TERRITORIOS; i++)
-            {
-                if (strcmp(mapa[i].cor, jogador) == 0)
-                    count++;
-            }
-
-            return count >= 3;
-        }
-        else
-        {
-            for (int i = 0; i < MAX_TERRITORIOS; i++)
-            {
-                if (strcmp(mapa[i].cor, "Vermelho") == 0)
-                    return 0;
-            }
-            return 1;
-        }
-    }
-
-    // Missões e verificação de vitória
-
-    int sortearMissao()
-    {
-        return rand() % MAX_MISSOES;
-    }
-
-    int verificarVitoria(const Territorio *mapa, int missao, char jogador[])
-    {
-
-        if (missao == 0)
-        {
-            int count = 0;
-
-            for (int i = 0; i < MAX_TERRITORIOS; i++)
-            {
-                if (strcmp(mapa[i].cor, jogador) == 0)
-                    count++;
-            }
-
-            return count >= 3;
-        }
-        else
-        {
-            for (int i = 0; i < MAX_TERRITORIOS; i++)
-            {
-                if (strcmp(mapa[i].cor, "Vermelho") == 0)
-                    return 0;
-            }
-            return 1;
+            if (strcmp(mapa[i].cor, jogador) == 0)
+                count++;
         }
 
-
+        return count >= 3;
     }
+    else
+    {
+        for (int i = 0; i < MAX_TERRITORIOS; i++)
+        {
+            if (strcmp(mapa[i].cor, "Vermelho") == 0)
+                return 0;
+        }
+        return 1;
+    }
+}
+
 // Função para limpar o buffer de entrada
-    void limparBufferEntrada() {
+void limparBufferEntrada()
+{
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
-}
 }
