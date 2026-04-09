@@ -1,7 +1,6 @@
 // Jogo de Guerra
 
 // Bibliotecas
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,11 +39,8 @@ int verificarVitoria(const Territorio *mapa, int missao, char jogador[]);
 // Utilitário
 void limparBufferEntrada();
 
-// Função Int Main ()
-
 int main()
 {
-
     setlocale(LC_ALL, "Portuguese");
     srand(time(NULL));
 
@@ -59,7 +55,6 @@ int main()
 
     char jogador[20] = "Azul";
     int missao = sortearMissao();
-
     int opcao;
     int venceu = 0;
 
@@ -84,6 +79,11 @@ int main()
             else
                 printf("Ainda não venceu.\n");
             break;
+        case 0:
+            printf("Saindo do jogo...\n");
+            break;
+        default:
+            printf("Opção inválida.\n");
         }
 
         printf("Pressione ENTER...");
@@ -97,7 +97,6 @@ int main()
 }
 
 // Função para alocar memória para o mapa de territórios
-
 Territorio *alocarMapa()
 {
     return (Territorio *)calloc(MAX_TERRITORIOS, sizeof(Territorio));
@@ -107,6 +106,7 @@ void inicializarTerritorios(Territorio *mapa)
 {
     char nomes[MAX_TERRITORIOS][MAX_NOME] = {
         "Brasil", "Argentina", "Chile", "Peru", "Uruguai"};
+
     char cores[2][20] = {"Azul", "Vermelho"};
 
     for (int i = 0; i < MAX_TERRITORIOS; i++)
@@ -123,7 +123,6 @@ void liberarMemoria(Territorio *mapa)
 }
 
 // Interface e funções de exibição
-
 void exibirMenuPrincipal()
 {
     printf("\n=== MENU ===\n");
@@ -153,7 +152,6 @@ void exibirMissao(int missao)
 }
 
 // Sistema de ataque e lógica de jogo
-
 void faseDeAtaque(Territorio *mapa, char jogador[])
 {
     int o, d;
@@ -164,26 +162,29 @@ void faseDeAtaque(Territorio *mapa, char jogador[])
     scanf("%d", &d);
     limparBufferEntrada();
 
-    if (o >= 0 && o < MAX_TERRITORIOS && d >= 0 && d < MAX_TERRITORIOS)
-    {
-        if (strcmp(mapa[o].cor, jogador) == 0)
-        {
-            simularAtaque(&mapa[o], &mapa[d]);
-        }
-        else
-        {
-            printf("Território não é seu.\n");
-        }
-    }
-    else
+    if (o < 0 || o >= MAX_TERRITORIOS || d < 0 || d >= MAX_TERRITORIOS)
     {
         printf("Índice inválido.\n");
+        return;
     }
+
+    if (o == d)
+    {
+        printf("Origem e destino não podem ser iguais.\n");
+        return;
+    }
+
+    if (strcmp(mapa[o].cor, jogador) != 0)
+    {
+        printf("Território não é seu.\n");
+        return;
+    }
+
+    simularAtaque(&mapa[o], &mapa[d]);
 }
 
 void simularAtaque(Territorio *origem, Territorio *destino)
 {
-
     if (origem->tropas < 2)
     {
         printf("Poucas tropas.\n");
@@ -206,15 +207,19 @@ void simularAtaque(Territorio *origem, Territorio *destino)
             destino->tropas = 1;
             origem->tropas--;
         }
+        else
+        {
+            printf("O território resistiu.\n");
+        }
     }
     else
     {
         origem->tropas--;
+        printf("O ataque falhou.\n");
     }
 }
 
 // Missões e verificação de vitória
-
 int sortearMissao()
 {
     return rand() % MAX_MISSOES;
@@ -222,7 +227,6 @@ int sortearMissao()
 
 int verificarVitoria(const Territorio *mapa, int missao, char jogador[])
 {
-
     if (missao == 0)
     {
         int count = 0;
